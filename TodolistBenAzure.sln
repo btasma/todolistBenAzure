@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenAzureWeb", "TodolistBenAzure\TodolistBenAzure\TodolistBenAzureWeb.csproj", "{5411324C-32E6-46B6-B8EE-3F761AAA6FA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenAzureFunction", "TodolistBenAzureFunction\TodolistBenAzureFunction.csproj", "{C28AC86E-3D32-44DE-9E3C-8B1A20192639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodolistBenAzureFunction", "TodolistBenAzureFunction\TodolistBenAzureFunction.csproj", "{C28AC86E-3D32-44DE-9E3C-8B1A20192639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenShared", "TodolistBenShared\TodolistBenShared.csproj", "{D6421356-7075-49EF-A6BD-81D3E760FA10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodolistBenShared", "TodolistBenShared\TodolistBenShared.csproj", "{D6421356-7075-49EF-A6BD-81D3E760FA10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenAzureWeb", "TodolistBenAzureWeb\TodolistBenAzureWeb.csproj", "{2CE7F7C6-069A-4F22-8358-1B0553FFAA5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5411324C-32E6-46B6-B8EE-3F761AAA6FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5411324C-32E6-46B6-B8EE-3F761AAA6FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5411324C-32E6-46B6-B8EE-3F761AAA6FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5411324C-32E6-46B6-B8EE-3F761AAA6FA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C28AC86E-3D32-44DE-9E3C-8B1A20192639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C28AC86E-3D32-44DE-9E3C-8B1A20192639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C28AC86E-3D32-44DE-9E3C-8B1A20192639}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{D6421356-7075-49EF-A6BD-81D3E760FA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6421356-7075-49EF-A6BD-81D3E760FA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6421356-7075-49EF-A6BD-81D3E760FA10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE7F7C6-069A-4F22-8358-1B0553FFAA5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE7F7C6-069A-4F22-8358-1B0553FFAA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE7F7C6-069A-4F22-8358-1B0553FFAA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE7F7C6-069A-4F22-8358-1B0553FFAA5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

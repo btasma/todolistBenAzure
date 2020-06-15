@@ -15,15 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TodolistBenShared\TodolistBenShared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TodolistBenShared\TodolistBenShared.csproj" />
   </ItemGroup>
 
 
