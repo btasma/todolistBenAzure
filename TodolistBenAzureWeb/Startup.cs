@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +30,8 @@ namespace TodolistBenAzureWeb
             services.AddApplicationInsightsTelemetry();
 
             services.AddControllers();
+
+            services.AddSignalR().AddAzureSignalR(Configuration.GetValue<string>("ConnectionStrings:AzureSignalRConnectionString"));
 
             services.AddSingleton<ITodoQueueClient>(s =>
                new TodoQueueClient(
@@ -58,6 +61,7 @@ namespace TodolistBenAzureWeb
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<TodoHub>("/todo");
             });
         }
     }

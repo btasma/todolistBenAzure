@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TodolistBenShared;
 
 namespace TodolistBenAzureWeb.Clients
 {
     public interface ITodoQueueClient
     {
-        Task SendAsync(Guid Id);
+        Task SendAsync(Todo todo);
     }
 }

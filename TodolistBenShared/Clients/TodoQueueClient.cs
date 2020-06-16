@@ -18,11 +18,9 @@ namespace TodolistBenAzureWeb.Clients
             queueClient = new QueueClient(connectionString, queueName);
         }
 
-        public async Task SendAsync(Guid Id)
+        public async Task SendAsync(Todo todo)
         {
-            var messageBody = new Todo() { Id = Id };
-
-            var message = new Message(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(messageBody)))
+            var message = new Message(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(todo)))
             {
                 ContentType = "application/json",
             };

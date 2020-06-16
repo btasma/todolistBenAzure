@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenShared", "Todoli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenAzureWeb", "TodolistBenAzureWeb\TodolistBenAzureWeb.csproj", "{2CE7F7C6-069A-4F22-8358-1B0553FFAA5B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployments", "deployments", "{B823A0EF-1932-447B-A78C-9FB630F422FF}"
+	ProjectSection(SolutionItems) = preProject
+		deployments\parameters.json = deployments\parameters.json
+		deployments\template.json = deployments\template.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

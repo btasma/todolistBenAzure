@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vulnerabilityAssessments_Default_storageContainerPath": {
+            "value": null
+        },
+        "sites_todolistben_name": {
+            "value": null
+        },
+        "servers_todolistbendb_name": {
+            "value": null
+        },
+        "sites_todolistbenfunctionapp_name": {
+            "value": null
+        },
+        "namespaces_todolistben_name": {
+            "value": null
+        },
+        "SignalR_todolistben_name": {
+            "value": null
+        },
+        "serverfarms_ASP_todolistben_8910_name": {
+            "value": null
+        },
+        "serverfarms_ASP_todolistben_adf0_name": {
+            "value": null
+        },
+        "storageAccounts_todolistbenstorage_name": {
+            "value": null
+        },
+        "actionGroups_Application_Insights_Smart_Detection_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___todolistben_name": {
+            "value": null
+        },
+        "components_todolistben_externalid": {
+            "value": null
+        }
+    }
+}

@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using TodolistBenAzureWeb.Clients;
+using TodolistBenShared;
 
 namespace TodolistBenAzureWeb.Controllers
 {
@@ -32,14 +34,15 @@ namespace TodolistBenAzureWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string text)
+        public async Task<IActionResult> Post([FromBody] string text, [FromHeader] string connectionId)
         {
-            var messageId = Guid.NewGuid();
+            var todoId = Guid.NewGuid();
+            var blobId = Guid.NewGuid();
 
-            await this.storageClient.UploadAsync(messageId, text);
-            await this.queueClient.SendAsync(messageId);
+            await this.storageClient.UploadAsync(blobId, text);
+            await this.queueClient.SendAsync(new Todo() { Id = todoId, BlobId = blobId, ConnectionId = connectionId });
 
-            return Ok();
+            return Ok(todoId);
         }
     }
 }

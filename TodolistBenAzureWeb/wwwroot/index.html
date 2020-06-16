@@ -1,10 +1,73 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />  
 </head>
 <body>
-    Welkom!
+    Todo list test <button class="btn-success pull-right" id="sendmessage" disabled>Add Todo</button>
+    <div id="messages" style="background-color: whitesmoke; "></div>
+    <!--Reference the SignalR library. -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>
+
+    <!--Add script to update the page and send messages.-->
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let todoConnectionId;
+
+            function addTodo() {
+                fetch('/api/todo', {
+                    method: "POST",
+                    body: JSON.stringify("new todo item"),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'connectionId': todoConnectionId
+                    },
+                })
+                .then((res) => res.json())
+                .then((data) => {
+                    outputMessage(`saving todo: ${data}`);
+                });
+            }
+
+            function outputMessage(message) {
+                var messageBox = document.getElementById('messages');
+                var newElem = document.createElement('div');
+                newElem.innerHTML = message;
+                messageBox.appendChild(newElem);
+            }
+
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl('/todo')
+                .build();
+
+            connection.on('todoResponse', (message) => {
+                outputMessage(message);
+            });
+            connection.onclose(() => {
+                outputMessage('connection closed');
+            });
+            connection.start()
+                .then(() => {
+                    outputMessage('connection started');
+                    connection.invoke('getConnectionId').then((id) => {
+                        outputMessage(`connection id: ${id}`);
+                        todoConnectionId = id;
+
+
+                        document.getElementById('sendmessage').disabled = false;
+                        document.getElementById('sendmessage').addEventListener('click', addTodo);
+                    });
+
+
+                })
+                .catch((e) => {
+                    outputMessage(e.message);
+                });
+        });
+    </script>
 </body>
 </html>
