@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/da5b5752-0281-49f8-be4f-b66e107bbc7f/resourcegroups/todolistben/providers/microsoft.insights/components/todolistben</ApplicationInsightsResourceId>
     <AssemblyName>TodolistBenAzureWeb</AssemblyName>
+    <UserSecretsId>25268d95-fde2-4b43-8253-a5ad7b5aa319</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
