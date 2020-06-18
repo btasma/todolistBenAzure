@@ -11,9 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodolistBenAzureWeb", "Todo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployments", "deployments", "{B823A0EF-1932-447B-A78C-9FB630F422FF}"
 	ProjectSection(SolutionItems) = preProject
+		deployments\clideploymentscript.sh = deployments\clideploymentscript.sh
 		deployments\dbschema.sql = deployments\dbschema.sql
-		deployments\parameters.json = deployments\parameters.json
-		deployments\template.json = deployments\template.json
 	EndProjectSection
 EndProject
 Global
