@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TodolistBenShared;
+using TodolistBenShared.Interfaces;
 
-namespace TodolistBenAzureWeb.Clients
+namespace TodolistBenShared.Clients
 {
     public class TodoQueueClient : ITodoQueueClient
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TodolistBenShared;
 
-namespace TodolistBenAzureWeb.Clients
+namespace TodolistBenShared.Interfaces
 {
     public interface ITodoQueueClient
     {

@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using TodolistBenAzureWeb.Clients;
+using TodolistBenShared.Clients;
+using TodolistBenShared.Interfaces;
 
 namespace TodolistBenAzureWeb
 {
@@ -42,6 +43,16 @@ namespace TodolistBenAzureWeb
                new TodoStorageClient(
                    Configuration.GetValue<string>("ConnectionStrings:storConnectionString"),
                    Configuration.GetValue<string>("ConnectionStrings:containerName")));
+
+            services.AddSingleton<ITodoDbClient>(s =>
+               new TodoDbClient(
+                   Configuration.GetValue<string>("ConnectionStrings:sqldb_connection")));
+
+            services.AddSingleton<ITodoSearchClient>(s =>
+               new TodoSearchClient(
+                    Configuration.GetValue<string>("ConnectionStrings:SearchServiceName"),
+                   Configuration.GetValue<string>("ConnectionStrings:SearchServiceAdminApiKey"),
+                   Configuration.GetValue<string>("ConnectionStrings:SearchIndexName")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

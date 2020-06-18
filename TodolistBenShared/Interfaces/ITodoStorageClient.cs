@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace TodolistBenAzureWeb.Clients
+namespace TodolistBenShared.Interfaces
 {
     public interface ITodoStorageClient
     {
         Task<string> DownloadAsync(Guid Id);
-        Task UploadAsync(Guid Id, string todoText);
+        Task UploadAsync(Guid Id, string todoText, Guid todoId);
     }
 }

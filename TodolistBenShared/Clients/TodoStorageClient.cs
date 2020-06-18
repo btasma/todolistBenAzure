@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.Azure.ServiceBus;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TodolistBenShared;
+using TodolistBenShared.Interfaces;
 
-namespace TodolistBenAzureWeb.Clients
+namespace TodolistBenShared.Clients
 {
     public class TodoStorageClient : ITodoStorageClient
     {
@@ -19,12 +21,13 @@ namespace TodolistBenAzureWeb.Clients
             container = new BlobContainerClient(connectionString, containerName);
         }
 
-        public async Task UploadAsync(Guid Id, string todoText)
+        public async Task UploadAsync(Guid Id, string todoText, Guid todoId)
         {
-            BlobClient blob = container.GetBlobClient(Id.ToString());
+            var metadata = new Dictionary<string, string>() { { "TodoId", todoId.ToString() } };
+            BlobClient blob = container.GetBlobClient($"{Id.ToString()}");
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(todoText)))
             {
-                await blob.UploadAsync(ms);
+                await blob.UploadAsync(ms, new BlobHttpHeaders() { ContentType = "text/plain" }, metadata);
             }
         }
 

@@ -6,8 +6,8 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
-using TodolistBenAzureWeb.Clients;
 using TodolistBenShared;
+using TodolistBenShared.Clients;
 
 namespace TodolistBenAzureFunction
 {
@@ -24,33 +24,20 @@ namespace TodolistBenAzureFunction
             var todo = JsonSerializer.Deserialize<Todo>(myQueueItem);
 
             var connectionString = Environment.GetEnvironmentVariable("sqldb_connection");
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
+            await new TodoDbClient(connectionString).AddTodoAsync(todo);
 
-                var query = "INSERT INTO dbo.Todos (ID, BlobId) VALUES (@ID, @BlobId);";
+            if (string.IsNullOrEmpty(todo.ConnectionId))
+                return;
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@ID", todo.Id);
-                    cmd.Parameters.AddWithValue("@BlobId", todo.BlobId);
-
-                    var rows = await cmd.ExecuteNonQueryAsync();
-                    if (rows == 0)
-                    {
-                        log.LogError("todo {id} not added", todo.Id);
-                        throw new Exception();
-                    }
-                }
-            }
-
+            // Only send a response if the connection id is set
             await signalRMessages.AddAsync(
                 new SignalRMessage
                 {
                     ConnectionId = todo.ConnectionId,
                     Target = "todoResponse",
                     Arguments = new[] { $"Todo {todo.Id} saved" }
+
                 });
-            }
+        }
     }
 }
