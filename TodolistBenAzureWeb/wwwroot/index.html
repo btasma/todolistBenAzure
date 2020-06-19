@@ -5,12 +5,41 @@
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />  
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .item {
+            flex-grow: 1;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
-    Todo list test <button class="btn-success pull-right" id="sendmessage" disabled>Add Todo</button>
-    <div id="messages" style="background-color: whitesmoke; "></div>
+    <div class="container">
+        <div class="item">
+            <h2>Current messages</h2>
+            <button class="btn-success pull-right" id="sendmessage" disabled>Add Todo</button>
+            <div id="messages" style="background-color: whitesmoke;"></div>
+        </div>
+        <div class="item">
+            <h2>All saved todo's</h2>
+            <div id="todos" style="background-color: whitesmoke;"></div>
+        </div>
+        <div class="item">
+            <h2>Search</h2>
+            <input id="searchterm" type="text">
+            <button class="btn-success pull-right" id="search">Search</button>
+            <div id="searchresults" style="background-color: whitesmoke;"></div>
+        </div>
+
+    </div>
+
+
     <!--Reference the SignalR library. -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>
+
 
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
@@ -27,34 +56,66 @@
                         'connectionId': todoConnectionId
                     },
                 })
-                .then((res) => res.json())
-                .then((data) => {
-                    outputMessage(`saving todo: ${data}`);
-                });
+                    .then((res) => res.json())
+                    .then((data) => {
+                        outputMessage('messages', `saving todo: ${data}`);
+                    });
             }
 
-            function outputMessage(message) {
-                var messageBox = document.getElementById('messages');
+            function getTodos() {
+                fetch('/api/todo', {
+                    method: "GET"
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        data.forEach((todo) => {
+                            outputMessage('todos', `todo: ${todo.id}`);
+                        });
+
+                    });
+            }
+
+            function search() {
+                document.getElementById('searchresults').innerHTML = "";
+                var term = document.getElementById('searchterm').value;
+                fetch('/api/todo/search/' + term, {
+                    method: "GET"
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        data.forEach((todo) => {
+                            outputMessage('searchresults', `todo: ${todo.todoId}, score: ${todo.score}`);
+                        });
+
+                    });
+            }
+
+            function outputMessage(id, message) {
+                var messageBox = document.getElementById(id);
                 var newElem = document.createElement('div');
                 newElem.innerHTML = message;
                 messageBox.appendChild(newElem);
             }
+
+            document.getElementById('search').addEventListener('click', search);
+            getTodos();
+
 
             var connection = new signalR.HubConnectionBuilder()
                 .withUrl('/todo')
                 .build();
 
             connection.on('todoResponse', (message) => {
-                outputMessage(message);
+                outputMessage('messages', message);
             });
             connection.onclose(() => {
-                outputMessage('connection closed');
+                outputMessage('messages', 'connection closed');
             });
             connection.start()
                 .then(() => {
-                    outputMessage('connection started');
+                    outputMessage('messages', 'connection started');
                     connection.invoke('getConnectionId').then((id) => {
-                        outputMessage(`connection id: ${id}`);
+                        outputMessage('messages', `connection id: ${id}`);
                         todoConnectionId = id;
 
 

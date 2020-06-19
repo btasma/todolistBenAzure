@@ -34,8 +34,9 @@ az sql db create --resource-group "${RGNAME}" --server "${RGNAME}-dbserver" --na
 # Connect to the db and create the DB scheme (see schema.sql)
 
 # Function
-az functionapp create --resource-group "${RGNAME}" --name "${RGNAME}-functionapp" --consumption-plan-location "${RGLOCATION}" --storage-account "${RGNAME}storage" --app-insights "${RGNAME}-appinsights" --functions-version 3 --os-type Linux --runtime dotnet
+az functionapp create --resource-group "${RGNAME}" --name "${RGNAME}-functionapp" --consumption-plan-location "${RGLOCATION}" --storage-account "${RGNAME}storage" --app-insights "${RGNAME}-appinsights" --functions-version 3 --os-type Windows --runtime dotnet
 
 # Web App
-az appservice plan create --resource-group "${RGNAME}" --name "${RGNAME}-plan" --location "${RGLOCATION}" --sku B1 --is-linux
-az webapp create --resource-group "${RGNAME}" --name "${RGNAME}-webapp" --plan t"${RGNAME}-plan" --runtime "DOTNETCORE|3.1"
+az appservice plan create --resource-group "${RGNAME}" --name "${RGNAME}-plan" --location "${RGLOCATION}" --sku D1
+# Note: Create the web app from the portal until DOTNETCORE runtime is supported on windows
+#az webapp create --resource-group "${RGNAME}" --name "${RGNAME}-webapp" --plan "${RGNAME}-plan" --runtime "DOTNETCORE|3.1"
